@@ -56,11 +56,11 @@ int main() {
         }
     }
     end = mysecond();
-    printf("Total time: %f\n", + (end - start));
     for(i = 0; i< dim; i++){
         for(j = 0; j < dim; j++) {
             printf("%.1f ",C[i][j]);
         }
         printf("\n");
     }
+    printf("Total time: %f\n", + (end - start));
 }
