@@ -20,9 +20,10 @@ static double mysecond()
 }
 
 int main() {
-    int i,j,k,stime;
+    int i,j,k,stime,nt;
     long ltime;
-
+    printf("Please enter 1,2,4, or 8 threads:");
+    scanf("%d",&nt);
   /* get the current calendar time */
     ltime = time(NULL);
     stime = (unsigned) ltime/2;
@@ -41,14 +42,14 @@ int main() {
     const int dim = MAXN;
 // BEGINNING OF Parallel STRUCTURE
     start = mysecond();
-#pragma omp parallel num_threads(8)
+#pragma omp parallel num_threads(nt)
 #pragma omp for schedule(static)
     for (i = 0; i < dim; i++) {
-        //#pragma omp parallel num_threads(8)
+        //#pragma omp parallel num_threads(nt)
         //#pragma omp for schedule(static)
         for (j = 0; j < dim; j++) {
             C[i][j] = 0;
-            //#pragma omp parallel num_threads(8)
+            //#pragma omp parallel num_threads(nt)
             //#pragma omp for schedule(static)
             for (k = 0; k < dim; k++) {
                 C[i][j] += A[i][k] * B[k][j];
@@ -56,11 +57,13 @@ int main() {
         }
     }
     end = mysecond();
+
     for(i = 0; i< dim; i++){
         for(j = 0; j < dim; j++) {
             printf("%.1f ",C[i][j]);
         }
         printf("\n");
     }
-    printf("Total time: %f\n", + (end - start));
+     printf("Total time: %f\n",(end - start));
+     printf("Number of threads: %d\n",nt);
 }
